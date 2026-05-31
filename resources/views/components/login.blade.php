@@ -85,7 +85,7 @@ new class extends Component
 <div class="min-h-screen flex items-center justify-center bg-linear-120 from-purple-500 to-purple-900 px-4">
     <flux:card class="w-full max-w-sm">
         @if (! $showOtp)
-            <form wire:submit="sendCode" class="space-y-6">
+            <form wire:submit="sendCode" class="space-y-6" @keydown.enter="$el.requestSubmit()">
                 <div class="space-y-2 text-center">
                     <flux:heading size="xl">Let's get this party started!</flux:heading>
                     <flux:text>Enter the email address or phone number associated with your invitation.</flux:text>
@@ -97,6 +97,7 @@ new class extends Component
                     type="text"
                     placeholder="you@example.com or 612-555-0100"
                     autofocus
+                    @keydown.enter="$el.closest('form').requestSubmit()"
                 />
 
                 <flux:button variant="primary" type="submit" color="yellow" class="w-full cursor-pointer">
@@ -104,7 +105,7 @@ new class extends Component
                 </flux:button>
             </form>
         @else
-            <form wire:submit="verify" class="space-y-6">
+            <form wire:submit="verify" class="space-y-6" @keydown.enter="$el.requestSubmit()">
                 <div class="space-y-2 text-center">
                     <flux:heading size="xl">Check your messages</flux:heading>
                     <flux:text>We sent a 6-digit code to your email or phone. Enter it below to continue.</flux:text>
@@ -125,7 +126,7 @@ new class extends Component
                     Verify
                 </flux:button>
 
-                <flux:button wire:click="$set('showOtp', false)" variant="ghost" class="w-full cursor-pointer">
+                <flux:button wire:click="$set('showOtp', false)" class="w-full cursor-pointer bg-gray-200 hover:bg-gray-300">
                     Back
                 </flux:button>
             </form>
