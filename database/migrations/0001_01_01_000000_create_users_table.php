@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('extra_guest_allowed')->default(false);
             $table->string('extra_guest_name')->nullable();
             $table->enum('extra_guest_rsvp', ['yes', 'no', 'maybe'])->nullable();
-            $table->string('magicToken')->nullable();
+            $table->string('magic_link_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

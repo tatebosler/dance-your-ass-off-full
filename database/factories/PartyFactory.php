@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Party;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<User>
+ * @extends Factory<Party>
  */
-class UserFactory extends Factory
+class PartyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone' => null,
+            'name' => $this->faker->words(2, asText: true),
+            'local' => $this->faker->boolean(),
         ];
     }
 }
