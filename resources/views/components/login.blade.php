@@ -121,10 +121,6 @@ new class extends Component
                     class="mx-auto"
                 />
 
-                @error('code')
-                    <flux:text class="text-center text-red-600 text-sm">{{ $message }}</flux:text>
-                @enderror
-
                 <flux:button variant="primary" type="submit" class="w-full cursor-pointer" color="yellow">
                     Verify
                 </flux:button>
