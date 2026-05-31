@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+}
+
+@layer components {
+  body {
+    @apply text-yellow-950 bg-purple-200;
+    font-family: var(--font-sans);
+  }
+
+  .font-josefin-sans {
+    font-family: var(--font-josefin-sans), var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-josefin-sans), var(--font-sans);
+  }
+
+  h2 {
+    @apply text-4xl font-bold mt-4;
+  }
+
+  h3 {
+    @apply text-2xl font-bold mt-4;
+  }
+
+  #logistics-and-faq p {
+    @apply mb-2;
+  }
+
+  #logistics-and-faq ul {
+    @apply list-disc ml-8 mb-2;
+  }
+
+  #logistics-and-faq li {
+    @apply mb-2;
+  }
+}
+
