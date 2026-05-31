@@ -16,6 +16,10 @@
     font-family: var(--font-sans);
   }
 
+  button {
+    @apply cursor-pointer;
+  }
+
   .font-josefin-sans {
     font-family: var(--font-josefin-sans), var(--font-sans);
   }

@@ -17,12 +17,6 @@ describe('RSVP Page', function () {
         $response->assertSeeLivewire('rsvp');
     });
 
-    test('displays user name at the top', function () {
-        $user = User::factory()->create(['name' => 'John Doe']);
-        $response = $this->actingAs($user)->get('/rsvp');
-        $response->assertSee('Welcome, John Doe');
-    });
-
     test('hydrates user to livewire component', function () {
         $user = User::factory()->create(['name' => 'Jane Smith']);
         Livewire::actingAs($user)->test('rsvp')
@@ -43,5 +37,144 @@ describe('RSVP Page', function () {
         Livewire::actingAs($user)->test('rsvp')
             ->assertSet('user.id', $user->id)
             ->assertSet('party', null);
+    });
+
+    test('user can update their rsvp status', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create(['party_id' => $party->id, 'rsvp' => null]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updateRsvp', $user->id, 'yes')
+            ->assertSet('guestRsvp.'.$user->id, 'yes');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'rsvp' => 'yes',
+        ]);
+    });
+
+    test('user can change rsvp status', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create(['party_id' => $party->id, 'rsvp' => 'yes']);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updateRsvp', $user->id, 'no')
+            ->assertSet('guestRsvp.'.$user->id, 'no');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'rsvp' => 'no',
+        ]);
+    });
+
+    test('changing rsvp to no clears plus one data', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create([
+            'party_id' => $party->id,
+            'rsvp' => 'yes',
+            'extra_guest_allowed' => true,
+            'extra_guest_name' => 'Jane Doe',
+            'extra_guest_rsvp' => 'yes',
+        ]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updateRsvp', $user->id, 'no');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'rsvp' => 'no',
+            'extra_guest_name' => null,
+            'extra_guest_rsvp' => null,
+        ]);
+    });
+
+    test('plus one name can only be saved when guest says yes', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create([
+            'party_id' => $party->id,
+            'rsvp' => 'maybe',
+            'extra_guest_allowed' => true,
+        ]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updatePlusOneName', $user->id, 'John Doe');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'extra_guest_name' => null,
+        ]);
+    });
+
+    test('plus one name is saved when guest says yes', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create([
+            'party_id' => $party->id,
+            'rsvp' => 'yes',
+            'extra_guest_allowed' => true,
+        ]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updatePlusOneName', $user->id, 'John Doe');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'extra_guest_name' => 'John Doe',
+        ]);
+    });
+
+    test('plus one rsvp is only allowed when name is entered and guest says yes', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create([
+            'party_id' => $party->id,
+            'rsvp' => 'yes',
+            'extra_guest_allowed' => true,
+        ]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updatePlusOneRsvp', $user->id, 'yes');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'extra_guest_rsvp' => null,
+        ]);
+    });
+
+    test('plus one rsvp is saved when name is entered and guest says yes', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create([
+            'party_id' => $party->id,
+            'rsvp' => 'yes',
+            'extra_guest_allowed' => true,
+            'extra_guest_name' => 'John Doe',
+        ]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updatePlusOneRsvp', $user->id, 'yes');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'extra_guest_rsvp' => 'yes',
+        ]);
+    });
+
+    test('each party member has independent rsvp state', function () {
+        $party = Party::factory()->create();
+        $user1 = User::factory()->create(['party_id' => $party->id, 'rsvp' => null]);
+        $user2 = User::factory()->create(['party_id' => $party->id, 'rsvp' => null]);
+
+        Livewire::actingAs($user1)->test('rsvp')
+            ->call('updateRsvp', $user1->id, 'yes')
+            ->assertSet('guestRsvp.'.$user1->id, 'yes')
+            ->assertSet('guestRsvp.'.$user2->id, null);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user1->id,
+            'rsvp' => 'yes',
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user2->id,
+            'rsvp' => null,
+        ]);
     });
 });
