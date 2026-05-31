@@ -28,7 +28,7 @@
             <div id="logistics-and-faq" class="mx-8 pt-4 sm:mx-16">
                 <h2 class="text-center">Logistics &amp; FAQ</h2>
                 <h3>I&apos;m in. Where do I RSVP?</h3>
-                <p><a href="/rsvp" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Right here.</a> Enter the email address or phone number associated with your invitation to get started. If you  need to make any changes to your RSVP, just come back here and you'll be all set.</p>
+                <p><a href="/rsvp" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Right here.</a> Enter the email address or phone number associated with your invitation to get started. If you  need to make any changes to your RSVP, just come back here and fill out a new form.</p>
 
                 <h3>When are RSVPs due?</h3>
                 <p>We need your response by <strong>5:00 PM CT on Monday, July 13, 2026</strong>. Thanks in advance for submitting your RSVP in a timely fashion!</p>
