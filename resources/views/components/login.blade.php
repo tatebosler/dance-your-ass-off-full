@@ -107,7 +107,7 @@ new class extends Component
             <form wire:submit="verify" class="space-y-6">
                 <div class="space-y-2 text-center">
                     <flux:heading size="xl">Check your messages</flux:heading>
-                    <flux:text>We sent a 6-digit code to your email or phone. Enter it below.</flux:text>
+                    <flux:text>We sent a 6-digit code to your email or phone. Enter it below to continue.</flux:text>
                 </div>
 
                 <flux:otp
@@ -125,11 +125,11 @@ new class extends Component
                     <flux:text class="text-center text-red-600 text-sm">{{ $message }}</flux:text>
                 @enderror
 
-                <flux:button variant="primary" type="submit" class="w-full">
+                <flux:button variant="primary" type="submit" class="w-full cursor-pointer" color="yellow">
                     Verify
                 </flux:button>
 
-                <flux:button wire:click="$set('showOtp', false)" variant="ghost" class="w-full">
+                <flux:button wire:click="$set('showOtp', false)" variant="ghost" class="w-full cursor-pointer">
                     Back
                 </flux:button>
             </form>
