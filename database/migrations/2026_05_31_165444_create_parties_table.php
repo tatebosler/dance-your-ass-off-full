@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('local')->default(false);
+            $table->enum('dietary_restrictions', ['yes', 'no'])->nullable();
             $table->text('dietary_notes')->nullable();
             $table->text('song_requests')->nullable();
             $table->timestamps();

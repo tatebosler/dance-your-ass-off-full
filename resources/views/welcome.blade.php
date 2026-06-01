@@ -23,7 +23,11 @@
             </div>
             <div class="bg-yellow-300 p-4 text-center text-purple-950">
                 <p class="font-josefin-sans text-4xl font-black mt-1">Friday, August 28, 2026</p>
+                @auth
+                <p class="font-josefin-sans text-2xl font-semibold">Dinner, Drinks, &amp; Dancing &bull; 6:30 &ndash; 11:30 PM &bull; North Garden Theater, 929 7th St W, Saint Paul, MN</p>
+                @else
                 <p class="font-josefin-sans text-2xl font-semibold">Dinner, Drinks, &amp; Dancing &bull; 6:30 PM until we get kicked out &bull; Saint Paul, MN</p>
+                @endauth
             </div>
             <div id="logistics-and-faq" class="mx-8 pt-4 sm:mx-16">
                 <h2 class="text-center">Logistics &amp; FAQ</h2>
@@ -36,6 +40,14 @@
                 <h3>What&apos;s the dress code?</h3>
                 <p>Dress to impress and be ready to rip the dance floor! <em>Rumor has it, at least one person is planning to wear her wedding dress...</em></p>
                 <p>There will be awards for the best dressed, so bring your A-game!</p>
+
+                @auth
+                    <h3>Where is the main event and how do I get there?</h3>
+                    <p><strong>North Garden Theater, 929 7th St W, Saint Paul, MN</strong></p>
+                    <p>If you're using Uber, Lyft, or the Transit app, just enter this address and you'll be all set.</p>
+                    <p>Metro Transit routes 54 (at 7th St / Randolph or 7th St / Osceola) and 74 (at 7th St / Toronto) are the best buses to get to the venue.</p>
+                    <p>If you must drive, set your GPS to <strong>659 James Ave, Saint Paul, MN</strong> &mdash; that will take you straight to the parking lot. You'll need to grab a parking pass at the entrance and display it on your dashboard. The parking lot is right around the corner from the theater &mdash; less than half a block away!</p>
+                @endauth
 
                 <h3>What's the schedule for the weekend?</h3>
                 <p><strong>Friday, August 28, 2026</strong></p>

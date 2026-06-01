@@ -177,4 +177,69 @@ describe('RSVP Page', function () {
             'rsvp' => null,
         ]);
     });
+
+    test('user can update pool party rsvp', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create(['party_id' => $party->id, 'pool_rsvp' => null]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updatePoolPartyRsvp', $user->id, 'yes')
+            ->assertSet('poolPartyRsvp.'.$user->id, 'yes');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'pool_rsvp' => 'yes',
+        ]);
+    });
+
+    test('each party member has independent pool party rsvp', function () {
+        $party = Party::factory()->create();
+        $user1 = User::factory()->create(['party_id' => $party->id, 'pool_rsvp' => null]);
+        $user2 = User::factory()->create(['party_id' => $party->id, 'pool_rsvp' => null]);
+
+        Livewire::actingAs($user1)->test('rsvp')
+            ->call('updatePoolPartyRsvp', $user1->id, 'yes')
+            ->assertSet('poolPartyRsvp.'.$user1->id, 'yes')
+            ->assertSet('poolPartyRsvp.'.$user2->id, null);
+    });
+
+    test('user can update state fair rsvp', function () {
+        $party = Party::factory()->create();
+        $user = User::factory()->create(['party_id' => $party->id, 'state_fair_rsvp' => null]);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->call('updateStateFairRsvp', $user->id, 'maybe')
+            ->assertSet('stateFairRsvp.'.$user->id, 'maybe');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'state_fair_rsvp' => 'maybe',
+        ]);
+    });
+
+    test('each party member has independent state fair rsvp', function () {
+        $party = Party::factory()->create();
+        $user1 = User::factory()->create(['party_id' => $party->id, 'state_fair_rsvp' => null]);
+        $user2 = User::factory()->create(['party_id' => $party->id, 'state_fair_rsvp' => null]);
+
+        Livewire::actingAs($user1)->test('rsvp')
+            ->call('updateStateFairRsvp', $user1->id, 'no')
+            ->assertSet('stateFairRsvp.'.$user1->id, 'no')
+            ->assertSet('stateFairRsvp.'.$user2->id, null);
+    });
+
+    test('activity rsvp cannot be set by a user from another party', function () {
+        $party1 = Party::factory()->create();
+        $party2 = Party::factory()->create();
+        $user1 = User::factory()->create(['party_id' => $party1->id]);
+        $user2 = User::factory()->create(['party_id' => $party2->id, 'pool_rsvp' => null]);
+
+        Livewire::actingAs($user1)->test('rsvp')
+            ->call('updatePoolPartyRsvp', $user2->id, 'yes');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user2->id,
+            'pool_rsvp' => null,
+        ]);
+    });
 });

@@ -17,6 +17,18 @@ new class extends Component
     /** @var array<int, string> */
     public array $guestPlusOneName = [];
 
+    public ?string $dietaryRestrictions = null;
+
+    public string $dietaryNotes = '';
+
+    public string $songRequests = '';
+
+    /** @var array<int, string|null> */
+    public array $poolPartyRsvp = [];
+
+    /** @var array<int, string|null> */
+    public array $stateFairRsvp = [];
+
     public function mount(): void
     {
         /** @var User $authUser */
@@ -29,6 +41,17 @@ new class extends Component
             foreach ($this->party->members as $member) {
                 $this->guestRsvp[$member->id] = $member->rsvp;
                 $this->guestPlusOneName[$member->id] = $member->extra_guest_name ?? '';
+            }
+
+            // Initialize party-level fields
+            $this->dietaryRestrictions = $this->party->dietary_restrictions;
+            $this->dietaryNotes = $this->party->dietary_notes ?? '';
+            $this->songRequests = $this->party->song_requests ?? '';
+
+            // Initialize per-guest activity RSVPs
+            foreach ($this->party->members as $member) {
+                $this->poolPartyRsvp[$member->id] = $member->pool_rsvp;
+                $this->stateFairRsvp[$member->id] = $member->state_fair_rsvp;
             }
         }
     }
@@ -86,16 +109,64 @@ new class extends Component
     {
         return $this->guestRsvp[$guestId] === 'yes' && ! empty($this->guestPlusOneName[$guestId]);
     }
+
+    public function updateDietaryRestrictions(string $value): void
+    {
+        $this->dietaryRestrictions = $value;
+        if ($this->party) {
+            $this->party->update(['dietary_restrictions' => $value]);
+        }
+    }
+
+    public function updateDietaryNotes(string $notes): void
+    {
+        $this->dietaryNotes = $notes;
+        if ($this->party) {
+            $this->party->update(['dietary_notes' => $notes]);
+        }
+    }
+
+    public function updateSongRequests(string $requests): void
+    {
+        $this->songRequests = $requests;
+        if ($this->party) {
+            $this->party->update(['song_requests' => $requests]);
+        }
+    }
+
+    public function updatePoolPartyRsvp(int $guestId, ?string $rsvpValue): void
+    {
+        $guest = User::find($guestId);
+        if (! $guest || $guest->party_id !== $this->party?->id) {
+            return;
+        }
+
+        $guest->update(['pool_rsvp' => $rsvpValue]);
+        $this->poolPartyRsvp[$guestId] = $rsvpValue;
+    }
+
+    public function updateStateFairRsvp(int $guestId, ?string $rsvpValue): void
+    {
+        $guest = User::find($guestId);
+        if (! $guest || $guest->party_id !== $this->party?->id) {
+            return;
+        }
+
+        $guest->update(['state_fair_rsvp' => $rsvpValue]);
+        $this->stateFairRsvp[$guestId] = $rsvpValue;
+    }
 };
 ?>
 
 <div class="p-4 sm:p-8">
     <h1 class="text-4xl font-bold mb-2 text-center">You're on the list &mdash; let's get this party started!</h1>
+    <p class="text-center">Your responses will save automatically as you make changes &mdash; no need to find a Save button. To make sure everything looks good, just refresh before closing this tab.</p>
 
     <h3 class="text-2xl font-bold mb-4 mt-8">Logistics reminder</h3>
     <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:30 (ish) until 11 (ish).</p>
     <p><strong>Where:</strong> North Garden Theater, 929 7th St W, Saint Paul, MN 55102</p>
     <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress.</p>
+    <p><strong>More info:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
 
     @if ($party)
         <h3 class="text-2xl font-bold mb-6">Who's coming to the party?</h3>
@@ -211,7 +282,182 @@ new class extends Component
             @endforelse
         </div>
 
-        <p class="mt-8"><strong>Is someone missing from your list?</strong> Please <a href="mailto:tatebosler@gmail.com" class="text-purple-600 hover:text-purple-700 font-black">get in touch with us</a> so we can make any necessary adjustments.</p>
+        <p class="mt-4"><strong>Is someone missing from your list?</strong> Please <a href="mailto:tatebosler@gmail.com" class="text-purple-600 hover:text-purple-700 font-black">get in touch with us</a> so we can make any necessary adjustments.</p>
+
+        @if (collect($guestRsvp)->first(fn($rsvp) => $rsvp === 'yes') !== null)
+            <div class="mt-4 space-y-4">
+                <div id="dinner" class="space-y-3">
+                    <h3>Dinner</h3>
+                    <p>We'll be getting catering from <strong>Inidan Kitchen Bar & Grill</strong>, one of our favorite Indian restaurants in Saint Paul. We'll have meat-based and vegetarian options available, and of course lots of rice, naan bread, and other accompaniments.</p>
+                    <p>Indian Kitchen's spice level is comparable to other Indian restaurants in the Twin Cities. We'll go mild and medium, and we'll have extra chili flakes available if you want to add more heat.</p>
+                    <p>If you're gluten-avoidant: Indian food is generally prepared with gluten-free ingredients. However, Indian Kitchen is a common kitchen and there could be cross contamination.</p>
+
+                    {{-- Dietary Preferences Question --}}
+                    <div class="pt-3 border-t border-purple-100">
+                        <p class="font-semibold mb-3">Does this sound okay to your group?</p>
+                        <div class="flex gap-3 flex-wrap">
+                            <button
+                                wire:click="updateDietaryRestrictions('no')"
+                                @class([
+                                    'px-4 py-2 rounded-lg font-semibold transition-all text-sm',
+                                    'bg-green-500 text-white' => $dietaryRestrictions === 'no',
+                                    'bg-gray-300 text-gray-700 hover:bg-gray-400' => $dietaryRestrictions !== 'no',
+                                ])
+                            >
+                                Yes, this sounds great!
+                            </button>
+
+                            <button
+                                wire:click="updateDietaryRestrictions('yes')"
+                                @class([
+                                    'px-4 py-2 rounded-lg font-semibold transition-all text-sm',
+                                    'bg-yellow-500 text-gray-900' => $dietaryRestrictions === 'yes',
+                                    'bg-gray-300 text-gray-700 hover:bg-gray-400' => $dietaryRestrictions !== 'yes',
+                                ])
+                            >
+                                We need to give you a heads up on some dietary needs
+                            </button>
+                        </div>
+
+                        {{-- Dietary Notes Textarea --}}
+                        @if ($dietaryRestrictions === 'yes')
+                            <div class="mt-3 max-w-2xl">
+                                <label for="dietary-notes" class="block text-sm font-semibold mb-2">Please describe any dietary needs or preferences:</label>
+                                <textarea
+                                    id="dietary-notes"
+                                    wire:model.debounce.1000ms="dietaryNotes"
+                                    wire:change="updateDietaryNotes($event.target.value)"
+                                    placeholder="Tell us about any dietary restrictions, allergies, or preferences..."
+                                    rows="4"
+                                    class="w-full px-3 py-2 border-2 border-purple-400 bg-white rounded-lg text-sm"
+                                ></textarea>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div id="songs" class="space-y-3">
+                    <h3>Song Requests</h3>
+                    <p>If you have song requests, <strong>now</strong> is the time to let us know &mdash; we'll forward them on to our DJ ahead of the party.</p>
+
+                    <label for="song-requests" class="block text-sm font-semibold mb-2">What songs will get you on the dance floor?</label>
+                    <textarea
+                        id="song-requests"
+                        wire:model.debounce.1000ms="songRequests"
+                        wire:change="updateSongRequests($event.target.value)"
+                        placeholder="List any songs you'd like to hear at the party..."
+                        rows="4"
+                        class="w-full max-w-2xl px-3 py-2 border-2 border-purple-400 bg-white rounded-lg text-sm"
+                    ></textarea>
+                </div>
+                <div id="activities" class="space-y-4">
+                    <h3>Saturday activities</h3>
+                    <p>We have a couple of optional activities planned for Saturday. Let us know if you'll be joining!</p>
+
+                    {{-- State Fair --}}
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-lg">Minnesota State Fair (meet at 10am)</h4>
+                        <p>We'll be heading to the State Fair on Saturday morning &mdash; we'll show you a couple of our favorite spots, and then you'll be free to explore on your own. Meet at the Giant Slide at 10:00 AM. (You'll need to purchase your own tickets &mdash; and bring cash or a credit card for food!)</p>
+
+                        <div class="space-y-2 max-w-2xl">
+                            @foreach ($party->members as $guest)
+                                <div class="flex flex-wrap justify-between items-center gap-2 border border-purple-100 rounded-lg px-3 py-2 bg-white">
+                                    <div class="text-sm font-semibold">{{ $guest->name }}</div>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <button
+                                            wire:click="updateStateFairRsvp({{ $guest->id }}, 'yes')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-green-500 text-white' => $stateFairRsvp[$guest->id] === 'yes',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $stateFairRsvp[$guest->id] !== 'yes',
+                                            ])
+                                        >
+                                            Hell Yes
+                                        </button>
+                                        <button
+                                            wire:click="updateStateFairRsvp({{ $guest->id }}, 'maybe')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-yellow-400 text-gray-900' => $stateFairRsvp[$guest->id] === 'maybe',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $stateFairRsvp[$guest->id] !== 'maybe',
+                                            ])
+                                        >
+                                            Not sure yet
+                                        </button>
+                                        <button
+                                            wire:click="updateStateFairRsvp({{ $guest->id }}, 'no')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-red-600 text-white' => $stateFairRsvp[$guest->id] === 'no',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $stateFairRsvp[$guest->id] !== 'no',
+                                            ])
+                                        >
+                                            No :(
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Pool Party --}}
+                    <div class="space-y-3">
+                        <h4 class="font-bold text-lg">Pool Party (Pool at 3, dinner at 5)</h4>
+                        <p>On Saturday afternoon and evening, we'll host a pool party at the Saint Dennis pool (Wendy's house), followed by BBQ on the grill.</p>
+                        <p><strong>2023 Upper Saint Dennis Rd, Saint Paul, MN 55116</strong></p>
+
+                        <div class="space-y-2 max-w-2xl">
+                            @foreach ($party->members as $guest)
+                                <div class="flex flex-wrap justify-between items-center gap-2 border border-purple-100 rounded-lg px-3 py-2 bg-white">
+                                    <div class="text-sm font-semibold">{{ $guest->name }}</div>
+                                    <div class="flex gap-2 flex-wrap">
+                                        <button
+                                            wire:click="updatePoolPartyRsvp({{ $guest->id }}, 'yes')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-green-500 text-white' => $poolPartyRsvp[$guest->id] === 'yes',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $poolPartyRsvp[$guest->id] !== 'yes',
+                                            ])
+                                        >
+                                            Hell Yes
+                                        </button>
+                                        <button
+                                            wire:click="updatePoolPartyRsvp({{ $guest->id }}, 'maybe')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-yellow-400 text-gray-900' => $poolPartyRsvp[$guest->id] === 'maybe',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $poolPartyRsvp[$guest->id] !== 'maybe',
+                                            ])
+                                        >
+                                            Not sure yet
+                                        </button>
+                                        <button
+                                            wire:click="updatePoolPartyRsvp({{ $guest->id }}, 'no')"
+                                            @class([
+                                                'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                                'bg-red-600 text-white' => $poolPartyRsvp[$guest->id] === 'no',
+                                                'bg-gray-400 text-white hover:bg-gray-500' => $poolPartyRsvp[$guest->id] !== 'no',
+                                            ])
+                                        >
+                                            No :(
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center space-y-2">
+                    <h1>That's all &mdash; we'll see you in August!</h1>
+                    <p>If you need to make any chnages, just come back to this website!</p>
+                </div>
+            </div>
+        @endif
+
+        @if (collect($guestRsvp)->every(fn($rsvp) => $rsvp === 'no'))
+            <h3 class="text-2xl font-bold mb-2 mt-8">Say it ain't so!</h3>
+            <p>We'll miss you at the party — thanks for letting us know you won't make it. If your plans change, please come back to this page and update your RSVP.</p>
+        @endif
     @else
         <p class="text-gray-600">No party found for your account.</p>
     @endif
