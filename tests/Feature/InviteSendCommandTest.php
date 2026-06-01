@@ -14,8 +14,7 @@ describe('InviteSendCommand', function () {
 
         $this->artisan('invite:send --all')
             ->assertExitCode(0)
-            ->expectsOutput('Sending invitations to 3 user(s)...')
-            ->expectsOutput('All invitations sent successfully!');
+            ->expectsOutput('Sent invitations to 3 user(s).');
 
         Notification::assertSentTo($users, Invitation::class);
     });
@@ -27,8 +26,7 @@ describe('InviteSendCommand', function () {
 
         $this->artisan('invite:send', ['users' => "{$user1->id},{$user3->id}"])
             ->assertExitCode(0)
-            ->expectsOutput('Sending invitations to 2 user(s)...')
-            ->expectsOutput('All invitations sent successfully!');
+            ->expectsOutput('Sent invitations to 2 user(s).');
 
         Notification::assertSentTo($user1, Invitation::class);
         Notification::assertSentTo($user3, Invitation::class);
@@ -45,5 +43,21 @@ describe('InviteSendCommand', function () {
         $this->artisan('invite:send', ['users' => '999,998,997'])
             ->assertExitCode(0)
             ->expectsOutput('No users found.');
+    });
+
+    test('skips users with no email or phone number', function () {
+        $userWithEmail = User::factory()->create(['email' => 'test@example.com']);
+        $userWithPhone = User::factory()->create(['email' => null, 'phone' => '5551234567']);
+        $userWithNeither = User::factory()->create(['email' => null, 'phone' => null]);
+
+        $this->artisan('invite:send --all')
+            ->assertExitCode(0)
+            ->expectsOutput('Sent invitations to 2 user(s).')
+            ->expectsOutput('Skipped 1 user(s) with no email or phone:')
+            ->expectsOutput("  - {$userWithNeither->name} ({$userWithNeither->id})");
+
+        Notification::assertSentTo($userWithEmail, Invitation::class);
+        Notification::assertSentTo($userWithPhone, Invitation::class);
+        Notification::assertNotSentTo($userWithNeither, Invitation::class);
     });
 });

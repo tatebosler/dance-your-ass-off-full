@@ -47,14 +47,29 @@ class InviteSendCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->info("Sending invitations to {$usersToInvite->count()} user(s)...");
+        $skipped = [];
+        $sent = [];
 
         foreach ($usersToInvite as $user) {
+            if (! $user->email && ! $user->phone) {
+                $skipped[] = $user;
+
+                continue;
+            }
+
             $user->notify(new Invitation);
+            $sent[] = $user;
             $this->line("✓ Invitation sent to {$user->name} ({$user->id})");
         }
 
-        $this->info('All invitations sent successfully!');
+        $this->info('Sent invitations to '.count($sent).' user(s).');
+
+        if ($skipped !== []) {
+            $this->warn('Skipped '.count($skipped).' user(s) with no email or phone:');
+            foreach ($skipped as $user) {
+                $this->line("  - {$user->name} ({$user->id})");
+            }
+        }
 
         return self::SUCCESS;
     }
