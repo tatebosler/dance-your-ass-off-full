@@ -83,6 +83,7 @@
             <h1>Dance Your Ass Off</h1>
         </div>
         <div class="body">
+            <p>Dear {{ $firstName }},</p>
             <p>You are invited to Saint Paul, Minnesota to celebrate Wendy's 59&frac12; and Tate's 29&frac12;!</p>
             <div class="event-details">
                 <p><strong>Friday, August 28, 2026</strong></p>

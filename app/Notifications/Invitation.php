@@ -23,10 +23,11 @@ class Invitation extends Notification
     {
         $this->ensureMagicLinkToken($notifiable);
         $invitationUrl = "{$this->rsvpUrl}/rsvp?invitationId={$notifiable->magic_link_token}";
+        $firstName = $this->getFirstName($notifiable->name);
 
         return (new MailMessage)
             ->subject("You're invited to DANCE YOUR ASS OFF!")
-            ->view('mail.invitation', ['rsvpUrl' => $invitationUrl])
+            ->view('mail.invitation', ['rsvpUrl' => $invitationUrl, 'firstName' => $firstName])
             ->replyTo('tatebosler@gmail.com', 'Tate Bosler')
             ->replyTo('wendylutter@gmail.com', 'Wendy Lutter');
     }
