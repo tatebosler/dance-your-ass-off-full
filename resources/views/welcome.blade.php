@@ -62,7 +62,7 @@
                 <p><strong>Saturday, August 29, 2026</strong></p>
                 <ul>
                     <li>Saturday morning: Optional group outing at the Minnesota State Fair! We'll take you through a few of our favorite spots, and then you'll be free to explore on your own. Meet at the State Fair at 10:00 AM (specific location TBA) &mdash; you'll want to leave your hotel around 9-9:30 to arrive on time.</li>
-                    <li>3:30 PM: Pool party at Wendy's! (Not the restaurant, obviously.)</li>
+                    <li>3:00 PM: Pool party at Wendy's! (Not the restaurant, obviously.)</li>
                     <li>5:00 PM: We'll fire up the grill for a casual dinner.</li>
                 </ul>
 
