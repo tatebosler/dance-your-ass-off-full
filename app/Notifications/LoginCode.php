@@ -31,7 +31,7 @@ class LoginCode extends Notification
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-            ->content("Your verification code for Dance Your Ass Off is {$this->code}");
+            ->content("Your verification code for DYAO is {$this->code}");
     }
 
     /**
