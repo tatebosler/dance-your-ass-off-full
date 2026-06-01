@@ -164,6 +164,7 @@ new class extends Component
 
     <h3 class="text-2xl font-bold mb-4 mt-8">The details, in a nutshell</h3>
     <div class="space-y-1">
+    <p><strong>What:</strong> Dinner, drinks, and dancing to celebrate Wendy's 59&frac12; and Tate's 29&frac12;!</p>
     <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:30 (ish) until 11 (ish).</p>
     <p><strong>Where:</strong> North Garden Theater, 929 7th St W, Saint Paul, MN 55102</p>
     <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress. Also, the dance floor will be open for several hours, and you do NOT want to miss it.</p>
