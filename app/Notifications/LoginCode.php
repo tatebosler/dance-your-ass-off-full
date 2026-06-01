@@ -31,6 +31,7 @@ class LoginCode extends Notification
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
+            ->from(config('services.vonage.sms_from'))
             ->content("Your verification code for DYAO is {$this->code}");
     }
 
