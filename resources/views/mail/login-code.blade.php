@@ -48,7 +48,6 @@
             color: #1e1b4b;
             font-size: 40px;
             font-weight: 900;
-            letter-spacing: 8px;
             padding: 16px 32px;
             border-radius: 8px;
             margin: 8px 0 24px;
