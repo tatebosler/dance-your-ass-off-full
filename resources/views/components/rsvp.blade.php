@@ -284,6 +284,8 @@ new class extends Component
 
         <p class="mt-4"><strong>Is someone missing from your list?</strong> Please <a href="mailto:tatebosler@gmail.com" class="text-purple-600 hover:text-purple-700 font-black">get in touch with us</a> so we can make any necessary adjustments.</p>
 
+        <p class="mt-4"><strong>Is this not your party?</strong> <a href="/logout" class="text-purple-600 hover:text-purple-700 font-black">Reset your session</a>, then try logging in again. Get in touch with us if you need further assistance.</p>
+
         @if (collect($guestRsvp)->first(fn($rsvp) => $rsvp === 'yes') !== null)
             <div class="mt-4 space-y-4">
                 <div id="dinner" class="space-y-3">
