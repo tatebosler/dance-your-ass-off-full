@@ -79,17 +79,18 @@
 <body>
     <div class="wrapper">
         <div class="header">
+            <h3>It's time to</h3>
             <h1>Dance Your Ass Off</h1>
         </div>
         <div class="body">
-            <p>You've been invited to one of the most anticipated parties of the summer!</p>
+            <p>You are invited to Saint Paul, Minnesota to celebrate Wendy's 59&frac12; and Tate's 29&frac12;!</p>
             <div class="event-details">
                 <p><strong>Friday, August 28, 2026</strong></p>
                 <p><strong>6:30 PM</strong></p>
+                <p><strong>North Garden Theater, 929 7th St W, Saint Paul, MN 55102</strong></p>
             </div>
-            <p><strong>RSVP by July 13th</strong></p>
+            <p><strong>Please RSVP by July 13th at 5:00 PM CT.</strong></p>
             <a href="{{ $rsvpUrl }}" class="cta-button">RSVP Now</a>
-            <p>Get ready to dance, celebrate, and have an amazing time!</p>
         </div>
         <div class="footer">
             <p>Message sent by Tate Bosler &amp; Wendy Lutter for the <em>Dance Your Ass Off</em> party on August 28, 2026. More info at <a href="https://danceyourassoff.party">danceyourassoff.party</a></p>
