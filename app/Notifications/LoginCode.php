@@ -22,14 +22,16 @@ class LoginCode extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your login code')
-            ->view('mail.login-code', ['code' => $this->code]);
+            ->subject("You're on the list! Here's your verification code.")
+            ->view('mail.login-code', ['code' => $this->code])
+            ->replyTo('tatebosler@gmail.com', 'Tate Bosler')
+            ->replyTo('wendylutter@gmail.com', 'Wendy Lutter');
     }
 
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-            ->content("Your verification code is {$this->code}");
+            ->content("Your verification code for Dance Your Ass Off is {$this->code}");
     }
 
     /**

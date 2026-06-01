@@ -293,7 +293,7 @@ new class extends Component
                     <p>If you're gluten-avoidant: Indian food is generally prepared with gluten-free ingredients. However, Indian Kitchen is a common kitchen and there could be cross contamination.</p>
 
                     {{-- Dietary Preferences Question --}}
-                    <div class="pt-3 border-t border-purple-100">
+                    <div>
                         <p class="font-semibold mb-3">Does this sound okay to your group?</p>
                         <div class="flex gap-3 flex-wrap">
                             <button

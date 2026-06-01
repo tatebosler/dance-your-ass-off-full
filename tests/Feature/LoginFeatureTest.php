@@ -92,6 +92,23 @@ describe('sendCode Action', function () {
         Notification::assertSentTo($user, LoginCode::class);
     });
 
+    test('sets two reply-to addresses on the login email', function () {
+        $user = User::factory()->create(['email' => 'test@example.com']);
+
+        Livewire::test('login')
+            ->set('identifier', 'test@example.com')
+            ->call('sendCode');
+
+        Notification::assertSentTo($user, LoginCode::class, function (LoginCode $notification) use ($user) {
+            $mailMessage = $notification->toMail($user);
+
+            return $mailMessage->replyTo === [
+                ['tatebosler@gmail.com', 'Tate Bosler'],
+                ['wendylutter@gmail.com', 'Wendy Lutter'],
+            ];
+        });
+    });
+
     test('sends SMS notification if user has phone but no email', function () {
         $user = User::factory()->create(['email' => null, 'phone' => '6125550100']);
 
