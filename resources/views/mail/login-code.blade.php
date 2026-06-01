@@ -72,7 +72,8 @@
             <p>If you didn&rsquo;t request this code, you can safely ignore this email.</p>
         </div>
         <div class="footer">
-            <p>This code expires in 1 hour &bull; DYAO Party 2026</p>
+            <p>This code expires in 1 hour.</p>
+            <p>Message sent by Tate Bosler &amp; Wendy Lutter for the <em>Dance Your Ass Off</em> party on August 28, 2026. More info at <a href="https://danceyourassoff.party">danceyourassoff.party</a></p>
         </div>
     </div>
 </body>
