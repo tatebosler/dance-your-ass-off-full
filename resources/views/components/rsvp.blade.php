@@ -162,11 +162,13 @@ new class extends Component
     <h1 class="text-4xl font-bold mb-2 text-center">You're on the list &mdash; let's get this party started!</h1>
     <p class="text-center">Your responses will save automatically as you make changes &mdash; no need to find a Save button. To make sure everything looks good, just refresh before closing this tab.</p>
 
-    <h3 class="text-2xl font-bold mb-4 mt-8">Logistics reminder</h3>
+    <h3 class="text-2xl font-bold mb-4 mt-8">The details, in a nutshell</h3>
     <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:30 (ish) until 11 (ish).</p>
     <p><strong>Where:</strong> North Garden Theater, 929 7th St W, Saint Paul, MN 55102</p>
-    <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress.</p>
-    <p><strong>More info:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
+    <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress. Also, the dance floor will be open for several hours, and you do NOT want to miss it.</p>
+    <p><strong>Food? Drinks?</strong> Yes. Indian food (buffet style) and open bar.</p>
+    <p><strong>Gifts?</strong> Nope &mdash; your presence is more than enough!</p>
+    <p><strong>More info, including hotel recommendations:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
 
     @if ($party)
         <h3 class="text-2xl font-bold mb-6">Who's coming to the party?</h3>
@@ -288,9 +290,22 @@ new class extends Component
 
         @if (collect($guestRsvp)->first(fn($rsvp) => $rsvp === 'yes') !== null)
             <div class="mt-4 space-y-4">
+                @unless ($party->local)
+                    <h3>Travel logistics</h3>
+                    <p><strong>Flights:</strong> book to MSP &mdash; we're a hub for Delta and Sun Country, and we get service from most major carriers. We recommend arriving Friday morning or early afternoon, and leaving Saturday evening or Sunday morning. <em>Doors open for the party at 6:30 on Friday, so please plan accordingly.</em> You absolutely can come in earlier or stay later if you want to make it a longer trip!</p>
+                    <p><strong>Hotels:</strong> there aren't any room blocks, so you're free to pick what you want. We generally recommend hotels rather than an Airbnb. Here are some picks:</p>
+                    <ul class="list-disc ml-8 space-y-1">
+                        <li>Looking for old-school Saint Paul vibes? Check out <a href="https://www.saintpaulhotel.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The Saint Paul Hotel</a>.</li>
+                        <li>B&B more your style? <a href="https://newvictorianbb.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The New Victorian B&B</a> is in a great neighborhood with lots of coffee shops and restaurants nearby.</li>
+                        <li>Interested in something more unconventional? Check out <a href="https://www.celestestpaul.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Celeste</a> &mdash; an old convent with an eccentric bar.</li>
+                        <li>If convenience to the airport and Mall of America is important, there are <a href="https://www.choicehotels.com/minnesota/bloomington/radisson-blu-hotels/mn292" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Radisson Blu</a> and <a href="https://www.marriott.com/en-us/hotels/mspjw-jw-marriott-minneapolis-mall-of-america/overview/" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">JW Marriott</a> options attached to MOA &mdash; a quick Uber or bus ride away from the venue.</li>
+                        <li>Finally, if you're a Hyatt loyalist like us, the closest option is <a href="https://www.hyatt.com/hyatt-place/en-US/mspzs-hyatt-place-st-paul-downtown" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Hyatt Place St. Paul Downtown</a>.</li>
+                    </ul>
+                    <p><strong>Ground transportation:</strong> You can rent a car (double check which airport terminal you need), but <strong>it's very easy to get around on Metro Transit, Uber, and Lyft.</strong></p>
+                @endunless
                 <div id="dinner" class="space-y-3">
                     <h3>Dinner</h3>
-                    <p>We'll be getting catering from <strong>Inidan Kitchen Bar & Grill</strong>, one of our favorite Indian restaurants in Saint Paul. We'll have meat-based and vegetarian options available, and of course lots of rice, naan bread, and other accompaniments.</p>
+                    <p>We'll be getting catering from <strong>Indian Kitchen Bar & Grill</strong>, one of our favorite Indian restaurants in Saint Paul. We'll have meat-based and vegetarian options available, and of course lots of rice, naan bread, and other accompaniments.</p>
                     <p>Indian Kitchen's spice level is comparable to other Indian restaurants in the Twin Cities. We'll go mild and medium, and we'll have extra chili flakes available if you want to add more heat.</p>
                     <p>If you're gluten-avoidant: Indian food is generally prepared with gluten-free ingredients. However, Indian Kitchen is a common kitchen and there could be cross contamination.</p>
 
