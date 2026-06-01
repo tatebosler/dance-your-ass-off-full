@@ -38,7 +38,7 @@ class Invitation extends Notification
         $firstName = $this->getFirstName($notifiable->name);
 
         return (new VonageMessage)
-            ->content("Hi {$firstName}! You've been invited to DANCE YOUR ASS OFF - Friday, August 28, 6:30pm. Please RSVP @ {$this->rsvpUrl} by 7/13.");
+            ->content("Hi {$firstName}! You've been invited to DANCE YOUR ASS OFF - Friday, August 28, 6:30pm. Please RSVP @ danceyourassoff.party by 7/13.");
     }
 
     /**
