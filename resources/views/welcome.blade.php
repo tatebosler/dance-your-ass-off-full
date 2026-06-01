@@ -40,6 +40,7 @@
                 <h3>What&apos;s the dress code?</h3>
                 <p>Dress to impress and be ready to rip the dance floor! <em>Rumor has it, at least one person is planning to wear her wedding dress...</em></p>
                 <p>There will be awards for the best dressed, so bring your A-game!</p>
+                <p>What exactly does "dress to impress" mean? Maybe disco, 70s, 80s, a fancy dress or suit, or whatever you feel most fabulous in!</p>
 
                 @auth
                     <h3>Where is the main event and how do I get there?</h3>
@@ -103,6 +104,7 @@
                     <li>Looking for old-school Saint Paul vibes? Check out <a href="https://www.saintpaulhotel.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The Saint Paul Hotel</a>.</li>
                     <li>B&B more your style? <a href="https://newvictorianbb.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The New Victorian B&B</a> is in a great neighborhood with lots of coffee shops and restaurants nearby.</li>
                     <li>Interested in something more unconventional? Check out <a href="https://www.celestestpaul.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Celeste</a> &mdash; an old convent with an eccentric bar.</li>
+                    <li>Marriott fans (and anyone looking to stay as close to the venue as possible), we've got you covered: <a href="https://www.marriott.com/en-us/hotels/msprd-residence-inn-st-paul-downtown/overview/" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">the Residence Inn St. Paul Downtown</a> is a great choice for you.</li>
                     <li>If convenience to the airport and Mall of America is important, there are <a href="https://www.choicehotels.com/minnesota/bloomington/radisson-blu-hotels/mn292" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Radisson Blu</a> and <a href="https://www.marriott.com/en-us/hotels/mspjw-jw-marriott-minneapolis-mall-of-america/overview/" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">JW Marriott</a> options attached to MOA &mdash; a quick Uber or bus ride away from the venue.</li>
                     <li>Finally, if you're a Hyatt loyalist like us, the closest option is <a href="https://www.hyatt.com/hyatt-place/en-US/mspzs-hyatt-place-st-paul-downtown" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Hyatt Place St. Paul Downtown</a>.</li>
                 </ul>

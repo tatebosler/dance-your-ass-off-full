@@ -165,9 +165,9 @@ new class extends Component
     <h3 class="text-2xl font-bold mb-4 mt-8">The details, in a nutshell</h3>
     <div class="space-y-1">
     <p><strong>What:</strong> Dinner, drinks, and dancing to celebrate Wendy's 59&frac12; and Tate's 29&frac12;!</p>
-    <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:30 (ish) until 11 (ish).</p>
+    <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:45 (ish) until 11:15 (ish).</p>
     <p><strong>Where:</strong> North Garden Theater, 929 7th St W, Saint Paul, MN 55102</p>
-    <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress. Also, the dance floor will be open for several hours, and you do NOT want to miss it.</p>
+    <p><strong>Dress code:</strong> Dress to impress! (What does that mean? Maybe disco, 70s, 80s, a fancy dress or suit, or whatever you feel most fabulous in!) There will be awards, and we've heard that at least one person is wearing her wedding dress. Also, the dance floor will be open for several hours, and you do NOT want to miss it.</p>
     <p><strong>Food? Drinks?</strong> Yes. Indian food (buffet style) and open bar.</p>
     <p><strong>Gifts?</strong> Nope &mdash; your presence is more than enough!</p>
     <p><strong>More info:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
@@ -301,6 +301,7 @@ new class extends Component
                         <li>Looking for old-school Saint Paul vibes? Check out <a href="https://www.saintpaulhotel.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The Saint Paul Hotel</a>.</li>
                         <li>B&B more your style? <a href="https://newvictorianbb.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">The New Victorian B&B</a> is in a great neighborhood with lots of coffee shops and restaurants nearby.</li>
                         <li>Interested in something more unconventional? Check out <a href="https://www.celestestpaul.com" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Celeste</a> &mdash; an old convent with an eccentric bar.</li>
+                        <li>Marriott fans (and anyone looking to stay as close to the venue as possible), we've got you covered: <a href="https://www.marriott.com/en-us/hotels/msprd-residence-inn-st-paul-downtown/overview/" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">the Residence Inn St. Paul Downtown</a> is a great choice for you.</li>
                         <li>If convenience to the airport and Mall of America is important, there are <a href="https://www.choicehotels.com/minnesota/bloomington/radisson-blu-hotels/mn292" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Radisson Blu</a> and <a href="https://www.marriott.com/en-us/hotels/mspjw-jw-marriott-minneapolis-mall-of-america/overview/" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">JW Marriott</a> options attached to MOA &mdash; a quick Uber or bus ride away from the venue.</li>
                         <li>Finally, if you're a Hyatt loyalist like us, the closest option is <a href="https://www.hyatt.com/hyatt-place/en-US/mspzs-hyatt-place-st-paul-downtown" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Hyatt Place St. Paul Downtown</a>.</li>
                     </ul>
