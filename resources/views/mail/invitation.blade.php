@@ -45,7 +45,7 @@
         .cta-button {
             display: inline-block;
             background: linear-gradient(120deg, #7e22ce, #6d28d9);
-            color: #fef9c3;
+            color: #ffffff;
             font-size: 16px;
             font-weight: 700;
             padding: 12px 32px;
@@ -90,7 +90,7 @@
                 <p><strong>North Garden Theater, 929 7th St W, Saint Paul, MN 55102</strong></p>
             </div>
             <p><strong>Please RSVP by July 13th at 5:00 PM CT.</strong></p>
-            <a href="{{ $rsvpUrl }}" class="cta-button">RSVP Now</a>
+            <a href="{{ $rsvpUrl }}" style="display: inline-block; background: linear-gradient(120deg, #7e22ce, #6d28d9); color: #ffffff; font-size: 16px; font-weight: 700; padding: 12px 32px; border-radius: 8px; text-decoration: none; margin: 8px 0 24px;">RSVP Now</a>
         </div>
         <div class="footer">
             <p>Message sent by Tate Bosler &amp; Wendy Lutter for the <em>Dance Your Ass Off</em> party on August 28, 2026. More info at <a href="https://danceyourassoff.party">danceyourassoff.party</a></p>
