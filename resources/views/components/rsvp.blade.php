@@ -159,16 +159,18 @@ new class extends Component
 ?>
 
 <div class="p-4 sm:p-8">
-    <h1 class="text-4xl font-bold mb-2 text-center">You're on the list &mdash; let's get this party started!</h1>
+    <h1 class="text-4xl font-bold mb-2 text-center">You're on the list &mdash; let's boogie!</h1>
     <p class="text-center">Your responses will save automatically as you make changes &mdash; no need to find a Save button. To make sure everything looks good, just refresh before closing this tab.</p>
 
     <h3 class="text-2xl font-bold mb-4 mt-8">The details, in a nutshell</h3>
+    <div class="space-y-1">
     <p><strong>When:</strong> Friday, August 28, 2026 &mdash; doors at 6:30, dinner at 7:00, dancing from 7:30 (ish) until 11 (ish).</p>
     <p><strong>Where:</strong> North Garden Theater, 929 7th St W, Saint Paul, MN 55102</p>
     <p><strong>Dress code:</strong> Dress to impress! There will be awards, and we've heard that at least one person is wearing her wedding dress. Also, the dance floor will be open for several hours, and you do NOT want to miss it.</p>
     <p><strong>Food? Drinks?</strong> Yes. Indian food (buffet style) and open bar.</p>
     <p><strong>Gifts?</strong> Nope &mdash; your presence is more than enough!</p>
-    <p><strong>More info, including hotel recommendations:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
+    <p><strong>More info:</strong> on the <a href="/" class="text-purple-600 hover:text-purple-700 font-black">main page of the website</a></p>
+</div>
 
     @if ($party)
         <h3 class="text-2xl font-bold mb-6">Who's coming to the party?</h3>
