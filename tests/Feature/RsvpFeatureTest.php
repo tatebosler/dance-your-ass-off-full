@@ -10,6 +10,29 @@ describe('RSVP Page', function () {
         $response->assertRedirectToRoute('login');
     });
 
+    test('guest with valid invitation id is logged in and can access rsvp page', function () {
+        $user = User::factory()->create([
+            'magic_link_token' => str_repeat('a', 64),
+        ]);
+
+        $response = $this->get('/rsvp?invitationId='.str_repeat('a', 64));
+
+        $response->assertStatus(200);
+        $response->assertSeeLivewire('rsvp');
+        $this->assertAuthenticatedAs($user);
+    });
+
+    test('guest with invalid invitation id is redirected to login', function () {
+        User::factory()->create([
+            'magic_link_token' => str_repeat('a', 64),
+        ]);
+
+        $response = $this->get('/rsvp?invitationId=invalid-token');
+
+        $response->assertRedirectToRoute('login');
+        $this->assertGuest();
+    });
+
     test('authenticated users can access rsvp page', function () {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get('/rsvp');
