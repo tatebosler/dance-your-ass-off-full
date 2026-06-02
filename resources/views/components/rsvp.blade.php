@@ -470,7 +470,7 @@ new class extends Component
                 </div>
                 <div class="text-center space-y-2">
                     <h1>That's all &mdash; we'll see you in August!</h1>
-                    <p>If you need to make any chnages, just come back to this website!</p>
+                    <p>If you need to make any changes, just come back to this website!</p>
                 </div>
             </div>
         @endif
