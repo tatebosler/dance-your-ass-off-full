@@ -62,9 +62,11 @@
                 </ul>
                 <p><strong>Saturday, August 29, 2026</strong></p>
                 <ul>
+                    @if(auth()->check() && auth()->user()->party?->invited_to_extras)
                     <li>10:00 AM: Optional group outing at the Minnesota State Fair! We'll take you through a few of our favorite spots, and then you'll be free to explore on your own.</li>
                     <li>3:00 PM: Pool party at Wendy's! (Not the restaurant, obviously.)</li>
                     <li>5:00 PM: We'll fire up the grill for a casual dinner.</li>
+                    @endif
                 </ul>
 
                 <h3>Wait, you&apos;re celebrating your HALF birthdays?</h3>
@@ -87,7 +89,9 @@
                 <ul>
                     <li>We strongly encourage everyone to use Uber, Lyft, or Metro Transit to get to and from the venue.</li>
                     <li>If you must drive, parking passes will be available for a lot that's half a block away.</li>
+                    @if(auth()->check() && auth()->user()->party?->invited_to_extras)
                     <li>You're welcome to join in with our State Fair and pool gatherings on Saturday too!</li>
+                    @endif
                 </ul>
 
                 <h3>I&apos;m traveling in for the party, what do I need to know?</h3>
