@@ -15,9 +15,15 @@ class Party extends Model
     protected $fillable = [
         'name',
         'local',
+        'invited_to_extras',
         'dietary_restrictions',
         'dietary_notes',
         'song_requests',
+    ];
+
+    protected $casts = [
+        'local' => 'boolean',
+        'invited_to_extras' => 'boolean',
     ];
 
     public function members(): HasMany

@@ -265,4 +265,22 @@ describe('RSVP Page', function () {
             'pool_rsvp' => null,
         ]);
     });
+
+    test('activities section is visible when party is invited to extras', function () {
+        $party = Party::factory()->create(['invited_to_extras' => true]);
+        $user = User::factory()->create(['party_id' => $party->id, 'rsvp' => 'yes']);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->assertSee('Saturday activities');
+    });
+
+    test('activities section is hidden when party is not invited to extras', function () {
+        $party = Party::factory()->create(['invited_to_extras' => false]);
+        $user = User::factory()->create(['party_id' => $party->id, 'rsvp' => 'yes']);
+
+        Livewire::actingAs($user)->test('rsvp')
+            ->assertDontSee('Saturday activities')
+            ->assertDontSee('Minnesota State Fair')
+            ->assertDontSee('Pool Party');
+    });
 });

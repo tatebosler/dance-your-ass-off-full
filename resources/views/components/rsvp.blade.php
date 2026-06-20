@@ -372,6 +372,7 @@ new class extends Component
                     ></textarea>
                 </div>
                 <div id="activities" class="space-y-4">
+                    @if ($party->invited_to_extras)
                     <h3>Saturday activities</h3>
                     <p>We have a couple of optional activities planned for Saturday. Let us know if you'll be joining!</p>
 
@@ -467,6 +468,7 @@ new class extends Component
                             @endforeach
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="text-center space-y-2">
                     <h1>That's all &mdash; we'll see you in August!</h1>
