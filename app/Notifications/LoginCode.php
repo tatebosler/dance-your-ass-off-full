@@ -16,7 +16,17 @@ class LoginCode extends Notification
     /** @return array<int, string> */
     public function via(object $notifiable): array
     {
-        return $notifiable->email ? ['mail'] : ['vonage'];
+        $channels = [];
+
+        if ($notifiable->email) {
+            $channels[] = 'mail';
+        }
+
+        if ($notifiable->phone) {
+            $channels[] = 'vonage';
+        }
+
+        return $channels;
     }
 
     public function toMail(object $notifiable): MailMessage

@@ -119,6 +119,18 @@ describe('sendCode Action', function () {
         Notification::assertSentTo($user, LoginCode::class);
     });
 
+    test('sends notification via both channels if user has email and phone', function () {
+        $user = User::factory()->create(['email' => 'test@example.com', 'phone' => '6125550100']);
+
+        Livewire::test('login')
+            ->set('identifier', 'test@example.com')
+            ->call('sendCode');
+
+        Notification::assertSentTo($user, LoginCode::class, function (LoginCode $notification) use ($user) {
+            return $notification->via($user) === ['mail', 'vonage'];
+        });
+    });
+
     test('rejects invalid email address', function () {
         Livewire::test('login')
             ->set('identifier', 'not-an-email')
