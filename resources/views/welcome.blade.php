@@ -18,8 +18,9 @@
                 <p class="uppercase font-black text-5xl sm:text-8xl">dance&nbsp;your ass&nbsp;off</p>
                 <p class="font-black text-2xl mt-6 sm:mt-2">celebrating&nbsp;Wendy&apos;s&nbsp;59&frac12; and&nbsp;Tate&apos;s&nbsp;29&frac12;</p>
                 <div class="mt-2 font-sans">
-                    <a href="/rsvp" class="inline-block mt-4 text-2xl sm:text-4xl px-6 py-3 bg-yellow-200 text-purple-950 font-bold rounded-lg shadow-lg shadow-purple-950/40 transition-shadow hover:bg-yellow-300 hover:shadow-xl">RSVP by July 13, 2026</a>
+                    <a href="/rsvp" class="inline-block mt-4 text-2xl sm:text-4xl px-6 py-3 bg-yellow-200 text-purple-950 font-bold rounded-lg shadow-lg shadow-purple-950/40 transition-shadow hover:bg-yellow-300 hover:shadow-xl">Update your RSVP</a>
                 </div>
+                <p class="mt-6 sm:mt-2">RSVPs have closed. Existing guests can log in above to update their party's information.</p>
             </div>
             <div class="bg-yellow-300 p-4 text-center text-purple-950">
                 <p class="font-josefin-sans text-4xl font-black mt-1">Friday, August 28, 2026</p>
@@ -31,11 +32,8 @@
             </div>
             <div id="logistics-and-faq" class="mx-8 pt-4 sm:mx-16">
                 <h2 class="text-center">Logistics &amp; FAQ</h2>
-                <h3>I&apos;m in. Where do I RSVP?</h3>
-                <p><a href="/rsvp" class="text-purple-600 hover:text-purple-700 font-black" target="_blank">Right here.</a> Enter the email address or phone number associated with your invitation to get started. If you  need to make any changes to your RSVP, just come back here and fill out a new form.</p>
-
-                <h3>When are RSVPs due?</h3>
-                <p>We need your response by <strong>5:00 PM CT on Monday, July 13, 2026</strong>. Thanks in advance for submitting your RSVP in a timely fashion!</p>
+                <h3>I missed the RSVP deadline. Can I still attend?</h3>
+                <p><strong>RSVPs have closed and we have filled our planned capacity.</strong> Unfortunately, we are unable to accommodate any additional guests at this time.</p>
 
                 <h3>What&apos;s the dress code?</h3>
                 <p>Dress to impress and be ready to rip the dance floor! <em>Rumor has it, at least one person is planning to wear her wedding dress...</em></p>
@@ -60,14 +58,15 @@
                     <li>11:00 PM: Like a Prayer</li>
                     <li>11:15 PM: Dance floor closes</li>
                 </ul>
-                <p><strong>Saturday, August 29, 2026</strong></p>
-                <ul>
-                    @if(auth()->check() && auth()->user()->party?->invited_to_extras)
-                    <li>10:00 AM: Optional group outing at the Minnesota State Fair! We'll take you through a few of our favorite spots, and then you'll be free to explore on your own.</li>
-                    <li>3:00 PM: Pool party at Wendy's! (Not the restaurant, obviously.)</li>
-                    <li>5:00 PM: We'll fire up the grill for a casual dinner.</li>
-                    @endif
-                </ul>
+
+                @if(auth()->check() && auth()->user()->party?->invited_to_extras)
+                    <p><strong>Saturday, August 29, 2026</strong></p>
+                    <ul>
+                        <li>10:00 AM: Optional group outing at the Minnesota State Fair! We'll take you through a few of our favorite spots, and then you'll be free to explore on your own.</li>
+                        <li>3:00 PM: Pool party at Wendy's! (Not the restaurant, obviously.)</li>
+                        <li>5:00 PM: We'll fire up the grill for a casual dinner.</li>
+                    </ul>
+                @endif
 
                 <h3>Wait, you&apos;re celebrating your HALF birthdays?</h3>
                 <p>Yes, you did read it correctly! We thought that celebrating our half birthdays, and therefore having the party in the summer, would be way more fun than waiting six months to celebrate our 30th and 60th birthdays in the middle of winter. Also, the State Fair is happening at the same time as our party, and you definitely don&apos;t want to miss that.</p>

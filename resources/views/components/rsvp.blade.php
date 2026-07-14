@@ -176,6 +176,10 @@ new class extends Component
     @if ($party)
         <h3 class="text-2xl font-bold mb-6">Who's coming to the party?</h3>
 
+        <div class="bg-yellow-400 border-2 border-yellow-500 rounded-lg p-4 text-yellow-900">
+            <strong>RSVPs have closed.</strong> You can make other changes below, but your main RSVPs can no longer be edited online. If you need to make changes, <a href="mailto:tatebosler@gmail.com" class="text-purple-600 hover:text-purple-700 font-black">please email us</a>.
+        </div>
+
         <div class="space-y-2 max-w-2xl">
             @forelse ($party->members as $guest)
                 <div class="border-2 border-purple-200 rounded-lg bg-white px-3 py-2">
@@ -187,33 +191,33 @@ new class extends Component
                         {{-- RSVP Buttons --}}
                         <div class="flex gap-2 flex-wrap">
                             <button
-                                wire:click="updateRsvp({{ $guest->id }}, 'yes')"
+                                disabled
                                 @class([
-                                    'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                    'px-4 py-2 rounded-lg font-bold text-sm cursor-not-allowed',
                                     'bg-green-500 text-white' => $guestRsvp[$guest->id] === 'yes',
-                                    'bg-gray-400 text-white hover:bg-gray-500' => $guestRsvp[$guest->id] !== 'yes',
+                                    'bg-gray-400 text-white' => $guestRsvp[$guest->id] !== 'yes',
                                 ])
                             >
                                 Hell Yes
                             </button>
 
                             <button
-                                wire:click="updateRsvp({{ $guest->id }}, 'maybe')"
+                                disabled
                                 @class([
-                                    'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                    'px-4 py-2 rounded-lg font-bold text-sm cursor-not-allowed',
                                     'bg-yellow-400 text-gray-900' => $guestRsvp[$guest->id] === 'maybe',
-                                    'bg-gray-400 text-white hover:bg-gray-500' => $guestRsvp[$guest->id] !== 'maybe',
+                                    'bg-gray-400 text-white' => $guestRsvp[$guest->id] !== 'maybe',
                                 ])
                             >
                                 Not sure yet
                             </button>
 
                             <button
-                                wire:click="updateRsvp({{ $guest->id }}, 'no')"
+                                disabled
                                 @class([
-                                    'px-4 py-2 rounded-lg font-bold transition-all text-sm',
+                                    'px-4 py-2 rounded-lg font-bold text-sm cursor-not-allowed',
                                     'bg-red-600 text-white' => $guestRsvp[$guest->id] === 'no',
-                                    'bg-gray-400 text-white hover:bg-gray-500' => $guestRsvp[$guest->id] !== 'no',
+                                    'bg-gray-400 text-white' => $guestRsvp[$guest->id] !== 'no',
                                 ])
                             >
                                 No :(
